@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Climate Policy Agent — Evidence Research</title><link rel="stylesheet" href="style.css"></head>
+<body><header class="hero"><div class="eyebrow">LIVE WEB RESEARCH · INDIA</div><h1>Climate Policy Agent</h1>
+<p>Search policy documents and research, inspect evidence, and compare environmental policy actions for India and Goa.</p></header>
+<main class="container"><section class="panel"><form id="ask-form">
+<label for="question">Policy question</label><textarea id="question" minlength="5" maxlength="500" required placeholder="Example: What policies could help Goa reduce air pollution from transport and tourism?"></textarea>
+<div class="controls"><div><label for="location">Geographic focus</label><select id="location"><option>India</option><option>Goa, India</option><option>Maharashtra, India</option><option>National policy in India</option></select></div>
+<button id="submit">Search sources &amp; compare evidence</button></div><p class="hint">The agent searches live sources, attempts to read source pages and links each extracted action to evidence.</p></form><div id="status" role="status" aria-live="polite"></div></section>
+<section id="results" hidden><div class="section-heading"><div class="eyebrow">EVIDENCE COMPARISON</div><h2>Policy actions found</h2></div><p id="rec-status" class="status-note"></p><div id="recommendations" class="stack"></div>
+<div class="section-heading"><div class="eyebrow">LIVE WEB RESULTS</div><h2>Sources reviewed</h2></div><div id="evidence" class="stack"></div>
+<div class="section-heading"><div class="eyebrow">RESEARCH TRANSPARENCY</div><h2>Limitations</h2></div><ul id="limitations"></ul><p id="method" class="muted"></p>
+<div class="section-heading"><div class="eyebrow">AGENT SKILLS</div><h2>Loaded research skills</h2></div><div id="skills" class="skills"></div></section>
+<footer>Research-support prototype. Extracted policy statements are not proof of effectiveness.</footer></main><script src="app.js"></script></body></html>

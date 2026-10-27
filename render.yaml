@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: climate-policy-agent-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SERPER_API_KEY
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
+  - type: web
+    name: climate-policy-agent-mcp
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python mcp_server.py
+    envVars:
+      - key: SERPER_API_KEY
+        sync: false
+      - key: MCP_HTTP
+        value: "1"

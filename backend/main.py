@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from policy_agent.research import run_research
+from policy_agent.agent import synthesize_policy_question
 from policy_agent.skills import list_skills, get_skill
 
 app = FastAPI(title="Climate Policy Agent API", version="2.0.0",

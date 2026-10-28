@@ -1,5 +1,5 @@
 // Set this to the deployed Render API URL before publishing. For local use, keep localhost.
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://climate-policy-agent-api.onrender.com";
 const form=document.getElementById("ask-form"), questionInput=document.getElementById("question");
 const locationInput=document.getElementById("location"), button=document.getElementById("submit");
 const statusBox=document.getElementById("status"), resultsSection=document.getElementById("results");

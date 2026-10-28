@@ -134,7 +134,7 @@ Research question: {question}
 Geographic focus: {location}
 
 Retrieved research evidence:
-{json.dumps(research, ensure_ascii=False)[:24000]}
+{json.dumps(research, ensure_ascii=False)[:6000]}
 
 Write a synthesis covering:
 1. Main policy actions and targets.

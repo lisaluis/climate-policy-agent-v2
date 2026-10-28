@@ -39,11 +39,46 @@ def skill(name: str):
     except ValueError as exc:
         raise HTTPException(404, str(exc)) from exc
 
+
 @app.post("/api/ask")
 def ask(req: AskRequest):
     try:
-        return run_research(req.question, req.location, req.max_results)
+        # Retrieve structured evidence using the existing research pipeline.
+        research = run_research(
+            req.question, req.location, req.max_results
+        )
+
+        # Add LLM synthesis when Groq is configured.
+        if os.getenv("GROQ_API_KEY", "").strip():
+            synthesis = synthesize_policy_question(
+                req.question, req.location, research
+            )
+            research["ai_synthesis"] = synthesis
+            research["method"] += " + Deep Agents/Groq evidence synthesis"
+
+            research["limitations"] = [
+                item for item in research.get("limitations", [])
+                if "not an LLM that resolves contradictions" not in item
+            ]
+            research["limitations"].append(
+                "LLM synthesis may make mistakes. Verify all conclusions "
+                "against the linked source documents."
+            )
+
+        return research
+
     except RuntimeError as exc:
         message = str(exc)
-        code = 503 if "SERPER_API_KEY is missing" in message else 502
+        code = 503 if (
+            "SERPER_API_KEY is missing" in message
+            or "GROQ_API_KEY is missing" in message
+        ) else 502
         raise HTTPException(code, message) from exc
+    except Exception as exc:
+        # Keep internal details in Render logs, not in public responses.
+        print(f"Agent request failed: {type(exc).__name__}: {exc}")
+        raise HTTPException(
+            502,
+            "Research or AI synthesis failed. Check the Render API logs."
+        ) from exc
+
